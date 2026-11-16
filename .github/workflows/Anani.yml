@@ -1,0 +1,32 @@
+name: APK Olustur
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Zip bul ve ac
+        run: |
+          echo "Depodaki dosyalar:"
+          ls -la
+          Z=$(find . -iname "*.zip" | head -1)
+          echo "Bulunan zip: $Z"
+          if [ -z "$Z" ]; then echo "HATA: depoda zip yok"; exit 1; fi
+          unzip -q "$Z" -d proje
+          D=$(dirname "$(find proje -name settings.gradle.kts | head -1)")
+          echo "Proje klasoru: $D"
+          echo "PROJE_DIR=$D" >> $GITHUB_ENV
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.9
+      - name: APK derle
+        run: cd "$PROJE_DIR" && gradle assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SedaBrowser-APK
+          path: ${{ env.PROJE_DIR }}/app/build/outputs/apk/debug/app-debug.apk
