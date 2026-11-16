@@ -1,0 +1,10 @@
+SEDA BROWSER - APK NASIL OLUSTURULUR (sadece telefonla)
+
+1) github.com'a gir, ucretsiz hesap ac / giris yap.
+2) Yeni bir "repository" olustur (adi: SedaBrowser). Public veya Private fark etmez.
+3) "uploading an existing file" ile bu ZIP'in ICINDEKI dosyalari yukle
+   (ZIP'i once telefonda ac / cikar; .github klasoru da yuklenmeli).
+4) Ust menuden "Actions" sekmesine gir -> "APK Olustur" -> "Run workflow".
+5) Yaklasik 5-8 dakika sonra bitince, calisan isin sayfasinda en altta
+   "SedaBrowser-APK" yazar. Ona dokun, ZIP iner. Icinden app-debug.apk cikar.
+6) app-debug.apk'ya dokun, "bilinmeyen kaynaklardan yukle" iznini ver, kur.
